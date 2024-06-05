@@ -57,5 +57,22 @@ app.put("/" , function(req ,res){
       res.json({});
 })
 
+//user can remove a kidney  (here we will remove all the unhealthy kidney)
+app.delete("/" , function(req ,res){
+    const newkidneys =[];
+
+  for(let i=0 ; i<users[0].kidneys.length; i++) {
+        if(users[0].kidneys[i].healthy){
+                newkidneys.push({
+                  healthy : true
+                })
+        }
+  }
+  users[0].kidneys = newkidneys;
+  res.json({mssg : "ho gaya"});
+})
+
+
+
 
 app.listen(3000);    
