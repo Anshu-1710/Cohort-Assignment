@@ -8,6 +8,9 @@ var users=[{
     }]
 }]
 
+app.use(express.json());
+
+//Popular input style for get request is "Query Parameters"
 //user can check how many kidneys they have and their health
 app.get("/" , function(req , res) {
    
@@ -30,6 +33,19 @@ app.get("/" , function(req , res) {
 
   })
     
+})
+
+// Popular input for Post request , you can send data  in the " body "
+//user can add the new kidney
+app.post("/" , function(req,res){
+    const isHealthy = req.body.isHealthy;
+    users[0].kidneys.push({                     //here giving an input by user and pushing in the array
+          healthy: isHealthy
+    })
+    res.json({
+      msg: "Done!"
+    })
+
 })
 
 app.listen(3000);    
