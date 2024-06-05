@@ -48,4 +48,14 @@ app.post("/" , function(req,res){
 
 })
 
+
+//user can replace a kidney , make it healthy
+app.put("/" , function(req ,res){
+      for(let i=0 ; i<users[0].kidneys.length; i++) {
+            users[0].kidneys[i].healthy = true;
+      }
+      res.json({});
+})
+
+
 app.listen(3000);    
