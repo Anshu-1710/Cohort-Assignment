@@ -59,20 +59,39 @@ app.put("/" , function(req ,res){
 
 //user can remove a kidney  (here we will remove all the unhealthy kidney)
 app.delete("/" , function(req ,res){
-    const newkidneys =[];
 
-  for(let i=0 ; i<users[0].kidneys.length; i++) {
-        if(users[0].kidneys[i].healthy){
-                newkidneys.push({
-                  healthy : true
-                })
-        }
-  }
-  users[0].kidneys = newkidneys;
-  res.json({mssg : "ho gaya"});
+  //you should return 411
+  // only if atleast one unhealthy kidney is there do this , else return 411
+    if(isThereAtleastOneUnHealthyKidney()){
+      const newkidneys =[];
+      for(let i=0 ; i<users[0].kidneys.length; i++) {
+            if(users[0].kidneys[i].healthy){
+                    newkidneys.push({
+                      healthy : true
+                    })
+            }
+      }
+      users[0].kidneys = newkidneys;
+      res.json({mssg : "ho gaya"});
+    } else{
+      res.status(411).json({
+        msg : "you have no bad kidneys"
+      });
+    }
+  
+  
 })
 
+function isThereAtleastOneUnHealthyKidney(){
 
+    let atLeastOneUnhealthyKidney = false;
+    for(let i=0 ; i<users[0].kidneys.length; i++) {
+        if(!users[0].kidneys[i].healthy){
+              atLeastOneUnhealthyKidney =true;
+           
+            }
 
-
+    }
+    return atLeastOneUnhealthyKidney
+}
 app.listen(3000);    
